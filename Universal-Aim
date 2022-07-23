@@ -314,8 +314,6 @@ local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
         SilentAimSettings.MouseHitPredictionAmount = Options.Amount.Value
     end)
 end
-
-local GeneralTab = Window:AddTab("Config") 
     
 local CreateConfigurationBOX = GeneralTab:AddRightTabbox("Create Configuration") do 
     local Main = CreateConfigurationBOX:AddTab("Create Configuration")
