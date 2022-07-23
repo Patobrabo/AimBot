@@ -241,7 +241,7 @@ end
 
 -- ui creating & handling
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Patobrabo/UI-Aimbot/main/UI-Model"))()
-Library:SetWatermark("github.com/Patobrabo")
+Library:SetWatermark("Pato & HipyZ")
 
 local Window = Library:CreateWindow("Universal Silent Aim, by Pato")
 local GeneralTab = Window:AddTab("General")
