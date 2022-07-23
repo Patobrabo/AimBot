@@ -248,10 +248,6 @@ local GeneralTab = Window:AddTab("Geral")
 local MainBOX = GeneralTab:AddLeftTabbox("Main") do
     local Main = MainBOX:AddTab("Main")
     
-    local GeneralTab = Window:AddTab("Visuais")
-local MainBOX = GeneralTab:AddLeftTabbox("ESP") do
-    local Main = MainBOX:AddTab("ESP")
-    
     Main:AddToggle("aim_Enabled", {Text = "Ligar"}):AddKeyPicker("aim_Enabled_KeyPicker", {Default = "RightAlt", SyncToggleState = true, Mode = "Toggle", Text = "Ligar", NoUI = false});
     Options.aim_Enabled_KeyPicker:OnClick(function()
         SilentAimSettings.Enabled = not SilentAimSettings.Enabled
@@ -319,6 +315,8 @@ local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
     end)
 end
 
+local GeneralTab = Window:AddTab("Config") 
+    
 local CreateConfigurationBOX = GeneralTab:AddRightTabbox("Create Configuration") do 
     local Main = CreateConfigurationBOX:AddTab("Create Configuration")
     
