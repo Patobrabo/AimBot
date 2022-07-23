@@ -22,8 +22,8 @@ local SilentAimSettings = {
     FOVVisible = false,
     ShowSilentAimTarget = false, 
     
-    PrevisãodoHit = false,
-    Porcentagemdaprevisão = 0.165,
+    MouseHitPrediction = false,
+    MouseHitPredictionAmount = 0.165,
     HitChance = 100
 }
 
@@ -244,7 +244,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Patob
 Library:SetWatermark("Pato & HipyZ")
 
 local Window = Library:CreateWindow("Universal Silent Aim, by Pato")
-local GeneralTab = Window:AddTab("General")
+local GeneralTab = Window:AddTab("Geral")
 local MainBOX = GeneralTab:AddLeftTabbox("Main") do
     local Main = MainBOX:AddTab("Main")
     
@@ -258,10 +258,10 @@ local MainBOX = GeneralTab:AddLeftTabbox("Main") do
         mouse_box.Visible = SilentAimSettings.Enabled
     end)
     
-    Main:AddToggle("TeamCheck", {Text = "Verificar time", Default = SilentAimSettings.TeamCheck}):OnChanged(function()
+    Main:AddToggle("TeamCheck", {Text = "Verificar Time", Default = SilentAimSettings.TeamCheck}):OnChanged(function()
         SilentAimSettings.TeamCheck = Toggles.TeamCheck.Value
     end)
-    Main:AddToggle("VisibleCheck", {Text = "Verificar visão", Default = SilentAimSettings.VisibleCheck}):OnChanged(function()
+    Main:AddToggle("VisibleCheck", {Text = "Verificar visao", Default = SilentAimSettings.VisibleCheck}):OnChanged(function()
         SilentAimSettings.VisibleCheck = Toggles.VisibleCheck.Value
     end)
     Main:AddDropdown("TargetPart", {Text = "Local", Default = SilentAimSettings.TargetPart, Values = {"Head", "HumanoidRootPart", "Random"}}):OnChanged(function()
@@ -271,7 +271,7 @@ local MainBOX = GeneralTab:AddLeftTabbox("Main") do
         "Raycast","FindPartOnRay",
         "FindPartOnRayWithWhitelist",
         "FindPartOnRayWithIgnoreList",
-        "Pessoa perto do mouse"
+        "Mouse.Hit/Target"
     }}):OnChanged(function() 
         SilentAimSettings.SilentAimMethod = Options.Method.Value 
     end)
@@ -293,30 +293,30 @@ local MiscellaneousBOX = GeneralTab:AddLeftTabbox("Miscellaneous")
 local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
     local Main = FieldOfViewBOX:AddTab("Visuals")
     
-    Main:AddToggle("Visible", {Text = "Mostrar Fov"}):AddColorPicker("Color", {Default = Color3.fromRGB(170, 170, 241)}):OnChanged(function()
+    Main:AddToggle("Visible", {Text = "Show FOV Circle"}):AddColorPicker("Color", {Default = Color3.fromRGB(170, 170, 241)}):OnChanged(function()
         fov_circle.Visible = Toggles.Visible.Value
         SilentAimSettings.FOVVisible = Toggles.Visible.Value
     end)
-    Main:AddSlider("Radius", {Text = "Tamanho do Fov", Min = 0, Max = 360, Default = 130, Rounding = 0}):OnChanged(function()
+    Main:AddSlider("Radius", {Text = "FOV Circle Radius", Min = 0, Max = 360, Default = 130, Rounding = 0}):OnChanged(function()
         fov_circle.Radius = Options.Radius.Value
         SilentAimSettings.FOVRadius = Options.Radius.Value
     end)
-    Main:AddToggle("MousePosition", {Text = "Mostrar alvo"}):AddColorPicker("MouseVisualizeColor", {Default = Color3.fromRGB(170, 170, 241)}):OnChanged(function()
+    Main:AddToggle("MousePosition", {Text = "Show Silent Aim Target"}):AddColorPicker("MouseVisualizeColor", {Default = Color3.fromRGB(170, 170, 241)}):OnChanged(function()
         mouse_box.Visible = Toggles.MousePosition.Value 
         SilentAimSettings.ShowSilentAimTarget = Toggles.MousePosition.Value 
     end)
     local PredictionTab = MiscellaneousBOX:AddTab("Prediction")
-    PredictionTab:AddToggle("Prediction", {Text = "Previsão do hit"}):OnChanged(function()
+    PredictionTab:AddToggle("Prediction", {Text = "Mouse.Hit/Target Prediction"}):OnChanged(function()
         SilentAimSettings.MouseHitPrediction = Toggles.Prediction.Value
     end)
-    PredictionTab:AddSlider("Amount", {Text = "Porcentagem da previsão", Min = 0.165, Max = 1, Default = 0.165, Rounding = 3}):OnChanged(function()
+    PredictionTab:AddSlider("Amount", {Text = "Previsao do hit", Min = 0.165, Max = 1, Default = 0.165, Rounding = 3}):OnChanged(function()
         PredictionAmount = Options.Amount.Value
         SilentAimSettings.MouseHitPredictionAmount = Options.Amount.Value
     end)
 end
 
-local CreateConfigurationBOX = GeneralTab:AddRightTabbox("Criar config") do 
-    local Main = CreateConfigurationBOX:AddTab("Criar config")
+local CreateConfigurationBOX = GeneralTab:AddRightTabbox("Create Configuration") do 
+    local Main = CreateConfigurationBOX:AddTab("Create Configuration")
     
     Main:AddInput("CreateConfigTextBox", {Default = "", Numeric = false, Finished = false, Text = "Create Configuration to Create", Tooltip = "Creates a configuration file containing settings you can save and load", Placeholder = "File Name here"}):OnChanged(function()
         if Options.CreateConfigTextBox.Value and string.len(Options.CreateConfigTextBox.Value) ~= "" then 
@@ -331,18 +331,18 @@ local CreateConfigurationBOX = GeneralTab:AddRightTabbox("Criar config") do
     end)
 end
 
-local SaveConfigurationBOX = GeneralTab:AddRightTabbox("Salvar config") do 
-    local Main = SaveConfigurationBOX:AddTab("Salvar config")
+local SaveConfigurationBOX = GeneralTab:AddRightTabbox("Save Configuration") do 
+    local Main = SaveConfigurationBOX:AddTab("Save Configuration")
     Main:AddDropdown("SaveConfigurationDropdown", {Values = GetFiles(), Text = "Choose Configuration to Save"})
-    Main:AddButton("Salvar config", function()
+    Main:AddButton("Save Configuration", function()
         if Options.SaveConfigurationDropdown.Value then 
             UpdateFile(Options.SaveConfigurationDropdown.Value)
         end
     end)
 end
 
-local LoadConfigurationBOX = GeneralTab:AddRightTabbox("Carregar config") do 
-    local Main = LoadConfigurationBOX:AddTab("Carregar config")
+local LoadConfigurationBOX = GeneralTab:AddRightTabbox("Load Configuration") do 
+    local Main = LoadConfigurationBOX:AddTab("Load Configuration")
     
     Main:AddDropdown("LoadConfigurationDropdown", {Values = GetFiles(), Text = "Choose Configuration to Load"})
     Main:AddButton("Load Configuration", function()
