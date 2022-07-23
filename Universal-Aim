@@ -248,7 +248,7 @@ local GeneralTab = Window:AddTab("Geral")
 local MainBOX = GeneralTab:AddLeftTabbox("Main") do
     local Main = MainBOX:AddTab("Main")
     
-    Main:AddToggle("aim_Enabled", {Text = "Ligar"}):AddKeyPicker("aim_Enabled_KeyPicker", {Default = "RightAlt", SyncToggleState = true, Mode = "Toggle", Text = "Enabled", NoUI = false});
+    Main:AddToggle("aim_Enabled", {Text = "Ligar"}):AddKeyPicker("aim_Enabled_KeyPicker", {Default = "RightAlt", SyncToggleState = true, Mode = "Toggle", Text = "Ligar", NoUI = false});
     Options.aim_Enabled_KeyPicker:OnClick(function()
         SilentAimSettings.Enabled = not SilentAimSettings.Enabled
         
@@ -291,7 +291,7 @@ end
 
 local MiscellaneousBOX = GeneralTab:AddLeftTabbox("Miscellaneous")
 local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
-    local Main = FieldOfViewBOX:AddTab("Visuals")
+    local Main = FieldOfViewBOX:AddTab("Visual")
     
     Main:AddToggle("Visible", {Text = "Mostrar Fov"}):AddColorPicker("Color", {Default = Color3.fromRGB(170, 170, 241)}):OnChanged(function()
         fov_circle.Visible = Toggles.Visible.Value
@@ -306,7 +306,7 @@ local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
         SilentAimSettings.ShowSilentAimTarget = Toggles.MousePosition.Value 
     end)
     local PredictionTab = MiscellaneousBOX:AddTab("Prediction")
-    PredictionTab:AddToggle("Prediction", {Text = "Previsão do Hit"}):OnChanged(function()
+    PredictionTab:AddToggle("Prediction", {Text = "Ligar previsão"}):OnChanged(function()
         SilentAimSettings.MouseHitPrediction = Toggles.Prediction.Value
     end)
     PredictionTab:AddSlider("Amount", {Text = "Previsao do hit", Min = 0.165, Max = 1, Default = 0.165, Rounding = 3}):OnChanged(function()
