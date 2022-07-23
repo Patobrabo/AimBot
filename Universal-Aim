@@ -55,7 +55,7 @@ local GetMouseLocation = UserInputService.GetMouseLocation
 local resume = coroutine.resume 
 local create = coroutine.create
 
-local ValidTargetParts = {"Head", "HumanoidRootPart"}
+local ValidTargetParts = {"Cabeça", "Corpo"}
 local PredictionAmount = 0.165
 
 local mouse_box = Drawing.new("Square")
